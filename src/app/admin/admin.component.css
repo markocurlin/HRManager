@@ -1,0 +1,15 @@
+.background {
+    background-color: #f5f7fb;
+}
+
+.text-color {
+    color: #3b3b3c;
+}
+
+.rounded-bottom-right {
+    border-bottom-right-radius: 2rem;
+}
+
+.padding {
+    padding: 1.5rem 2.5rem;
+}

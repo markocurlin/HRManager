@@ -1,0 +1,5 @@
+<div class='container-fluid padding background rounded-bottom-right'> 
+    <app-show-working-place [workingPlaces]='workingPlaces'></app-show-working-place>
+    
+    <app-add-working-place (workingPlacesEvent)='emitWorkingPlaces($event)'></app-add-working-place>
+</div>

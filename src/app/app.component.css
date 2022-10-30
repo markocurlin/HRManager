@@ -1,0 +1,40 @@
+.link {
+    color: #000000;
+    text-decoration: none;
+}
+
+.background {
+    background-color: #dee1e7;
+}
+
+.light-grey {
+    background-color: #f5f7fb;
+}
+
+.vertical {
+    transform: rotate(90deg);
+}
+
+.pointer {
+    cursor: pointer;
+}
+
+.bold {
+    font-weight: 400;
+}
+
+.rounded-bottom-right {
+    border-bottom-right-radius: 1rem;
+}
+
+.position-fix {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: #dee1e7;
+}

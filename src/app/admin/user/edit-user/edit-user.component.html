@@ -1,0 +1,75 @@
+<div class='container-fluid padding background rounded-bottom-right'>
+    <div class='container mb-5 ps-3'>
+        <nav aria-label='breadcrumb'>
+            <ol class='breadcrumb'>
+                <li class='breadcrumb-item'>
+                    <a class='breadcrumb-item' routerLink='/' ariaCurrentWhenActive='page'>Početna</a>
+                </li>
+                <li class='breadcrumb-item'>
+                    <a class='breadcrumb-item' routerLink='/admin-page/1/userName_asc' ariaCurrentWhenActive='page'>Admin</a>
+                </li>
+                <li class='breadcrumb-item active' aria-current='page'>Uredi korisnika</li>
+            </ol>
+          </nav>
+
+        <h4 class='text-color'>Uredi korisnika</h4>
+    </div>
+
+    <div class='container rounded-3 mt-3 bg-white'>
+        <form class='row p-4 gx-4 gy-3 d-flex justify-content-center align-items-center' [formGroup]='userForm' (ngSubmit)='handleSubmit()'>
+            <div class='col-sm-3'>
+                <label for='userName' class='form-label'>Korisničko ime</label>
+                <input type='text' class='form-control' id='userName' autocomplete='off' formControlName='userName'>
+            </div>
+    
+            <div class='col-sm-3'>
+                <label for='email' class='form-label'>Email</label>
+                <input type='text' class='form-control' id='email' autocomplete='off' formControlName='email'>
+            </div>
+    
+            <div class='col-sm-3'>
+                <label for='password' class='form-label'>Lozinka</label>
+                <input type='password' class='form-control' id='password' autocomplete='off' formControlName='password'>
+            </div>
+
+            <div class='col-sm-3'>
+                <label for='newPassword' class='form-label'>Nova lozinka</label>
+                <input type='password' class='form-control' id='newPassword' autocomplete='off' formControlName='newPassword'>
+            </div>
+
+            <div class='w-100 d-none d-md-block'></div>
+            
+            <div class='col-sm-3'>
+                <label for='repeatNewPassword' class='form-label'>Ponovi novu šifru</label>
+                <input type='password' class='form-control' id='repeatNewPassword' autocomplete='off' formControlName='repeatNewPassword'>
+            </div>
+    
+            <div class='col-sm-3'>
+                <label for='firstName' class='form-label'>Ime</label>
+                <input type='text' class='form-control' id='firstName' autocomplete='off' formControlName='firstName'>
+            </div>
+    
+            <div class='col-sm-3'>
+                <label for='lastName' class='form-label'>Prezime</label>
+                <input type='text' class='form-control' id='lastName' autocomplete='off' formControlName='lastName'>
+            </div>
+
+            <div class='col-sm-3'>
+                <label for='role' class='form-label'>Uloga</label>
+                <select class='form-control' aria-label='Role' id='role' formControlName='role'>
+                    <option value='Admin'>Admin</option>
+                    <option value='Edit'>Edit</option>
+                    <option value='View'>View</option>
+                </select>
+            </div>
+            
+            <div class='col-md-12 text-center mt-4 mb-3'>
+                <button class='btn btn-primary' type='submit' [disabled]='!userForm.valid'>Submit</button>
+            </div>
+        </form>
+    </div>
+
+    <div class='col-md-12 mt-4 mb-4'>
+        <app-alert></app-alert>
+    </div>
+</div>

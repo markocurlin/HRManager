@@ -1,0 +1,204 @@
+<div class='container-fluid padding background rounded-bottom-right'>
+    <div class='container mb-5 ps-3'>
+        <nav aria-label='breadcrumb'>
+            <ol class='breadcrumb'>
+                <li class='breadcrumb-item'>
+                    <a class='breadcrumb-item' routerLink='/' ariaCurrentWhenActive='page'>Početna</a>
+                </li>
+                <li class='breadcrumb-item active' aria-current='page'>Unos novog kandidata</li>
+            </ol>
+          </nav>
+        <h4 class='text-color'>Unos novog kandidata</h4>
+    </div>
+
+    <div class='container-fluid rounded-3 mt-4 bg-white'>
+        <form class='row pt-3 p-4 g-4 d-flex justify-content-center align-items-center' [formGroup]='candidateForm'>
+            <div class='col-sm-3'>
+                <label for='firstName' class='form-label'>Ime</label>
+                <input type='text' class='form-control' id='firstName' autocomplete='off' formControlName='firstName'>
+            </div>
+            
+            <div class='col-sm-3'>
+                <label for='lastName' class='form-label'>Prezime</label>
+                <input type='text' class='form-control' id='lastName' autocomplete='off' formControlName='lastName'>
+            </div>
+            
+            <div class='col-sm-3'>
+                <label for='dateOfBirth' class='form-label'>Datum rođenja</label>
+                <div class='input-group'>
+                    <input class='form-control' id='dateOfBirth' autocomplete='off' formControlName='dateOfBirth' placeholder='dd.mm.yyyy'
+                        name='dp' ngbDatepicker #dateOfBirth='ngbDatepicker'>
+                    <button class='btn btn-outline-secondary calendar d-flex align-items-center' (click)='dateOfBirth.toggle()' type='button'>
+                        <svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-calendar' viewBox='0 0 16 16'>
+                            <path d='M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z'/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+
+            <div class='col-sm-3'>
+                <label for='dateOfApplication' class='form-label'>Datum prijave</label>
+                <div class='input-group'>
+                    <input class='form-control' id='dateOfApplication' autocomplete='off' formControlName='dateOfApplication' placeholder='dd.mm.yyyy'
+                        name='dp' ngbDatepicker #dateOfApplication='ngbDatepicker'>
+                    <button class='btn btn-outline-secondary calendar d-flex align-items-center' (click)='dateOfApplication.toggle()' type='button'>
+                        <svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-calendar' viewBox='0 0 16 16'>
+                            <path d='M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z'/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+            
+            <div class='col-sm-3'>
+                <label for='workingPlace' class='form-label'>Prijava za radno mjesto</label>
+                <div class='input-group'>
+                    <input type='text' class='form-control' disabled id='workingPlace' aria-label='workingPlace' aria-describedby='workingPlaceButton' autocomplete='off'>
+                    <button class='btn btn-outline-secondary d-flex align-items-center' type='button' id='workingPlaceButton' data-bs-toggle='modal' data-bs-target='#exampleModal'>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-square" viewBox="0 0 16 16">
+                            <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>
+                            <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+
+            <div class='col-sm-3'>
+                <label for='profession' class='form-label'>Zanimanje</label>
+                <input type='text' class='form-control' id='profession' autocomplete='off' formControlName='profession'>
+            </div>
+
+            <div class='col-sm-3'>
+                <label for='employment' class='form-label'>Trenutno zaposlenje</label>
+                <input type='text' class='form-control' id='employment' autocomplete='off' formControlName='employment'>
+            </div>
+
+            <div class='col-sm-3'>
+                <label for='educationDegree' class='form-label'>Stupanj obrazovanja</label>
+                <select class='form-control' aria-label='EducationDegree' id='educationDegree' formControlName='educationDegree'>
+                    <option *ngFor='let educationDegree of educationDegrees' [value]='educationDegree.name'> {{ educationDegree.name }} </option>
+                </select>
+            </div>
+
+            <div class='col-sm-6'>
+                <label for='education' class='form-label'>Zadnja završena škola ili fakultet</label>
+                <input type='text' class='form-control' id='education' autocomplete='off' formControlName='education'>
+            </div>
+
+            <div class='col-sm-6'>
+                <label for='candidateFile' class='form-label'>Prenesi dokument</label>
+                <input #fileInput type='file' accept='.pdf' (change)='onFileUpload(fileInput)' class='form-control' id='candidateFile' autocomplete='off' formControlName='candidateFile'>
+            </div>
+        </form>
+
+        <div class='container ps-4'>
+            <a class='btn btn-primary mt-2' data-bs-toggle='collapse' (click)='handleColapse()' href='#collapseExample' role='button' aria-expanded='false' aria-controls='collapseExample'>
+                Dodaj razgovor
+            </a>
+        </div>
+
+        <div class='collapse mt-4' id='collapseExample'>
+            <div class='container ps-4'>
+                <h4 class='text-color'>Razgovor s kandidatom</h4>
+                <hr class='pt-1 ps-1 pe-1 mb-0'>
+            </div>
+            <form class='container d-flex' [formGroup]='interviewForm'>
+                <div class='row p-3 gy-2 d-flex justify-content-center align-items-center'>
+                    <div class='col'>
+                        <label for='dateOfInterview' class='form-label'>Datum razgovora</label>
+                        <div class='input-group'>
+                            <input class='form-control' id='dateOfInterview' autocomplete='off' formControlName='dateOfInterview' placeholder='dd.mm.yyyy'
+                                name='dp' ngbDatepicker #dateOfInterview='ngbDatepicker'>
+                            <button class='btn btn-outline-secondary calendar d-flex align-items-center' (click)='dateOfInterview.toggle()' type='button'>
+                                <svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-calendar' viewBox='0 0 16 16'>
+                                    <path d='M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z'/>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class='col'>
+                        <label for='interest' class='form-label'>Interesi</label>
+                        <select class='form-control' aria-label='Interest' id='interest' formControlName='interest'>
+                            <option *ngFor='let interest of interests' [value]='interest.name'> {{ interest.name }} </option>
+                        </select>
+                    </div>
+
+                    <div class='w-100 d-none d-md-block'></div>
+
+                    <div class='col'>
+                        <label for='evaluation' class='form-label'>Ocjena kandidata</label>
+                        <select class='form-control' aria-label='Evaluation' id='evaluation' formControlName='evaluation'>
+                            <option value='5'>5</option>
+                            <option value='4'>4</option>
+                            <option value='3'>3</option>
+                            <option value='2'>2</option>
+                            <option value='1'>1</option>
+                        </select>
+                    </div>
+            
+                    <div class='col'>
+                        <label for='selectEmployment' class='form-label'>Zaposlenje</label>
+                        <select class='form-control' aria-label='Select employment' (change)='onChanges()' id='selectEmployment' formControlName='selectEmployment'>
+                            <option value='Da'>Da</option>
+                            <option value='Ne'>Ne</option>
+                        </select>
+                    </div>
+
+                    <div class='w-100 d-none d-md-block'></div>
+
+                    <div class='col'>
+                        <label for='dateOfEmployment' class='form-label'>Datum zaposlenja</label>
+                        <div class='input-group'>
+                            <input class='form-control' id='dateOfEmployment' autocomplete='off' formControlName='dateOfEmployment' placeholder='dd.mm.yyyy'
+                                name='dp' ngbDatepicker #dateOfEmployment='ngbDatepicker'>
+                            <button class='btn btn-outline-secondary calendar d-flex align-items-center' (click)='dateOfEmployment.toggle()' type='button'>
+                                <svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-calendar' viewBox='0 0 16 16'>
+                                    <path d='M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z'/>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class='col-sm-6 p-3'>
+                    <label for='comment' class='form-label'>Komentar</label>
+                    <textarea class='form-control' id='comment' rows='8' formControlName='comment'></textarea>
+                </div>
+            </form>
+        </div>
+
+        <div class='container text-end p-4 pt-3'>
+            <button class='btn btn-primary mb-2' [disabled]='(!candidateForm.valid || (isCollapsed && !interviewForm.valid)) || checkBoxFormValidator() === false' (click)='handleSubmit()'>Potvrdi</button>
+        </div>
+    </div>
+  
+    <div class='modal fade' id='exampleModal' tabindex='-1' aria-labelledby='exampleModalLabel' aria-hidden='true'>
+        <div class='modal-dialog modal-dialog-centered'>
+            <div class='modal-content'>
+                <div class='modal-header'>
+                    <h5 class='modal-title' id='exampleModalLabel'>Prijava za radno mjesto</h5>
+                    <button type='button' class='btn-close' data-bs-dismiss='modal' aria-label='Close'></button>
+                </div>
+                <div class='modal-body'>
+                    <form [formGroup]='checkboxForm' class='row p-2'>
+                        <div *ngFor='let workingPlace of workingPlaces' class='col-3'>
+                            <div class='form-check'>
+                                <input class='form-check-input' type='checkbox' [value]='workingPlace.name' [id]='workingPlace.name' [formControlName]='workingPlace.name'>
+                                <label class='form-check-label' [for]='workingPlace.name'>
+                                    {{ workingPlace.name }}
+                                </label>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class='modal-footer'>
+                    <button type='button' class='btn btn-secondary' data-bs-dismiss='modal'>Zatvori</button>
+                    <button type='button' class='btn btn-primary' (click)='handleWorkingPlaceForm()' [disabled]='checkBoxFormValidator() === false' data-bs-dismiss='modal'>Potvrdi</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class='col-md-12 mt-4 mb-4'>
+        <app-alert></app-alert>
+    </div>
+</div>

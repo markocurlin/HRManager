@@ -1,0 +1,154 @@
+<div class='container-fluid padding background rounded-bottom-right'>
+    <div class='container mb-5 ps-3'>
+        <nav aria-label='breadcrumb'>
+            <ol class='breadcrumb'>
+                <li class='breadcrumb-item'>
+                    <a class='breadcrumb-item' routerLink='/' ariaCurrentWhenActive='page'>Početna</a>
+                </li>
+                <li class='breadcrumb-item active' aria-current='page'>Pretraživanje kandidata</li>
+            </ol>
+          </nav>
+        <h4 class='text-color'>Pretraživanje</h4>
+    </div>
+
+    <div class='container rounded-3 mt-4 bg-white'>
+        <form class='row pt-3 p-4 g-4 d-flex justify-content-center align-items-center' [formGroup]='findForm' (ngSubmit)='handleSubmit()'>
+            <div class='col-sm-3'>
+                <label for='firstName' class='form-label'>Ime</label>
+                <input type='text' class='form-control' id='firstName' autocomplete='off' formControlName='firstName'>
+            </div>
+        
+            <div class='col-sm-3'>
+                <label for='lastName' class='form-label'>Prezime</label>
+                <input type='text' class='form-control' id='lastName' autocomplete='off' formControlName='lastName'>
+            </div>
+
+            <div class='col-sm-3'>
+                <label for='dateOfApplication' class='form-label'>Datum prijave</label>
+                <div class='input-group'>
+                    <input class='form-control' id='dateOfApplication' autocomplete='off' formControlName='dateOfApplication' placeholder='dd.mm.yyyy'
+                        name='dp' ngbDatepicker #dateOfApplication='ngbDatepicker'>
+                    <button class='btn btn-outline-secondary calendar d-flex align-items-center' (click)='dateOfApplication.toggle()' type='button'>
+                        <svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-calendar' viewBox='0 0 16 16'>
+                            <path d='M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z'/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+
+            <div class='col-sm-3'>
+                <label for='workingPlace' class='form-label'>Prijava za radno mjesto</label>
+                <select class='form-control' aria-label='WorkingPlace' id='workingPlace' formControlName='workingPlace'>
+                    <option *ngFor='let workingPlace of workingPlaces' [value]='workingPlace.name'> {{ workingPlace.name }} </option>
+                </select>
+            </div>
+
+            <div class='col-sm-3'>
+                <label for='educationDegree' class='form-label'>Stupanj obrazovanja</label>
+                <select class='form-control' aria-label='EducationDegree' id='educationDegree' formControlName='educationDegree'>
+                    <option *ngFor='let educationDegree of educationDegrees' [value]='educationDegree.name'> {{ educationDegree.name }} </option>
+                </select>
+            </div>
+
+            <div class='col-sm-3'>
+                <label for='dateOfInterview' class='form-label'>Datum razgovora</label>
+                <div class='input-group'>
+                    <input class='form-control' id='dateOfInterview' autocomplete='off' formControlName='dateOfInterview' placeholder='dd.mm.yyyy'
+                        name='dp' ngbDatepicker #dateOfInterview='ngbDatepicker'>
+                    <button class='btn btn-outline-secondary calendar d-flex align-items-center' (click)='dateOfInterview.toggle()' type='button'>
+                        <svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-calendar' viewBox='0 0 16 16'>
+                            <path d='M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z'/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+
+            <div class='col-sm-3'>
+                <label for='interest' class='form-label'>Interesi</label>
+                <select class='form-control' aria-label='Interest' id='interest' formControlName='interest'>
+                    <option *ngFor='let interest of interests' [value]='interest.name'> {{ interest.name }} </option>
+                </select>
+            </div>
+
+            <div class='col-sm-3'>
+                <label for='evaluation' class='form-label'>Ocjena kandidata</label>
+                <select class='form-control' aria-label='Evaluation' id='evaluation' formControlName='evaluation'>
+                    <option value='5'>5</option>
+                    <option value='4'>4</option>
+                    <option value='3'>3</option>
+                    <option value='2'>2</option>
+                    <option value='1'>1</option>
+                </select>
+            </div>
+        
+            <div class='col-md-12 p-2 text-end'>
+                <button class='btn btn-primary' [disabled]='!atLeastOneValidator()' type='submit'>Submit</button>
+            </div>
+        </form>
+    </div>
+
+    <div *ngIf='searchResults.length !== 0' class='mt-4'>
+        <div class='container mb-3 ps-3'>
+            <h4 class='text-color'>Rezultat pretraživanja</h4>
+        </div>
+        
+        <div class='container rounded-4 mt-4 p-4 bg-white table-responsive'>
+            <table class='table align-middle'>
+                <thead>    
+                    <tr>
+                        <th scope='col' sortable='firstName' (sort)='onSort($event)'>Ime</th>
+                        <th scope='col' sortable='lastName' (sort)='onSort($event)'>Prezime</th>
+                        <th scope='col' sortable='dateOfApplication' (sort)='onSort($event)'>Datum prijave</th>
+                        <th scope='col' sortable='workingPlace' (sort)='onSort($event)'>Prijava za radno mjesto</th>
+                        <th scope='col' sortable='profession' (sort)='onSort($event)'>Zanimanje</th>
+                        <th scope='col' sortable='education' (sort)='onSort($event)'>Obrazovanje</th>
+                        <th scope='col' sortable='employment' (sort)='onSort($event)'>Zaposlenje</th>
+                        <th scope='col' sortable='dateOfInterview' (sort)='onSort($event)'>Datum razgovora</th>
+                        <th scope='col' sortable='evaluation' (sort)='onSort($event)'>Ocjena kandidata</th>
+                        <th scope='col' sortable='selectEmployment' (sort)='onSort($event)'>Zaposlenje</th>
+                        <th scope='col' sortable='dateOfEmployment' (sort)='onSort($event)'>Datum zaposljenja</th>
+                        <th scope='col'></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor='let candidate of searchResults'>        
+                        <td (click)='handleClick(candidate)'>{{ candidate.firstName}}</td>
+                        <td (click)='handleClick(candidate)'>{{ candidate.lastName}}</td>
+                        <td (click)='handleClick(candidate)'>{{ candidate.dateOfApplication}}</td>
+                        <td (click)='handleClick(candidate)' *ngIf='iterateWorkingPlaces(candidate).count == 0'>Nema prijava</td>
+                        <td (click)='handleClick(candidate)' *ngIf='iterateWorkingPlaces(candidate).count == 1'>{{ candidate.candidateWorkingPlaces[iterateWorkingPlaces(candidate).position].workingPlace.name }}</td>
+                        <td (click)='handleClick(candidate)' *ngIf='iterateWorkingPlaces(candidate).count != 1'> Više prijava</td>
+                        <td (click)='handleClick(candidate)'>{{ candidate.profession}}</td>
+                        <td (click)='handleClick(candidate)'>{{ candidate.education}}</td>
+                        <td (click)='handleClick(candidate)'>{{ candidate.employment}}</td>
+                        <td (click)='handleClick(candidate)' *ngIf='candidate.interviews.length >= 1'>{{ candidate.interviews[candidate.interviews.length - 1].dateOfInterview}}</td>
+                        <td (click)='handleClick(candidate)' *ngIf='candidate.interviews.length >= 1'>{{ candidate.interviews[candidate.interviews.length - 1].evaluation}}</td>
+                        <td (click)='handleClick(candidate)' *ngIf='candidate.interviews.length >= 1'>{{ candidate.interviews[candidate.interviews.length - 1].selectEmployment}}</td>
+                        <td (click)='handleClick(candidate)' *ngIf='candidate.interviews.length >= 1'>{{ candidate.interviews[candidate.interviews.length - 1].dateOfEmployment}}</td>
+                        <td (click)='handleClick(candidate)' *ngIf='candidate.interviews.length == 0'>Nema razgovora</td>
+                        <td (click)='handleClick(candidate)' *ngIf='candidate.interviews.length == 0'>Nema razgovora</td>
+                        <td (click)='handleClick(candidate)' *ngIf='candidate.interviews.length == 0'>Nema razgovora</td>
+                        <td (click)='handleClick(candidate)' *ngIf='candidate.interviews.length == 0'>Nema razgovora</td>
+                        <td>
+                            <button type='button' [disabled]='!canEdit()' (click)='handleDelete(candidate)' class='btn btn-secondary'>
+                                <svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-trash' viewBox='0 0 16 16'>
+                                    <path d='M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z'></path>
+                                    <path fill-rule='evenodd' d='M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z'></path>
+                                </svg>
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        
+            <div class='d-flex justify-content-between p-2'>
+                <ngb-pagination [collectionSize]='collectionSize' [(page)]='page' [pageSize]='pageSize' (pageChange)='refreshCandidates()'>
+                </ngb-pagination>
+            </div>
+        </div>
+    </div>
+
+    <div class='col-md-12 mt-3 mb-4'>
+        <app-alert></app-alert>
+    </div>
+</div>

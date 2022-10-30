@@ -1,0 +1,51 @@
+<div class='container mt-4 ps-3'>
+    <h4 class='text-color'>Unos novog korisnika</h4>
+</div>
+
+<div class='container rounded-3 mt-4 pt-4 bg-white'>
+    <form class='row pt-3 p-4 gx-5 gy-2 d-flex justify-content-center align-items-center' [formGroup]='userForm' (ngSubmit)='handleSubmit()'>
+        <div class='col-sm-3'>
+            <label for='userName' class='form-label'>Korisničko ime</label>
+            <input type='text' class='form-control' id='userName' autocomplete='off' formControlName='userName'>
+        </div>
+
+        <div class='col-sm-3'>
+            <label for='email' class='form-label'>Email</label>
+            <input type='text' class='form-control' id='email' autocomplete='off' formControlName='email'>
+        </div>
+        
+        <div class='col-sm-3'>
+            <label for='password' class='form-label'>Lozinka</label>
+            <input type='password' class='form-control' id='password' autocomplete='off' formControlName='password'>
+        </div>
+
+        <div class='w-100 d-none d-md-block'></div>
+
+        <div class='col-sm-3'>
+            <label for='role' class='form-label'>Uloga</label>
+            <select class='form-control' aria-label='Role' id='role' formControlName='role'>
+                <option value='Admin'>Admin</option>
+                <option value='Edit'>Edit</option>
+                <option value='View'>View</option>
+            </select>
+        </div>
+
+        <div class='col-sm-3'>
+            <label for='firstName' class='form-label'>Ime</label>
+            <input type='text' class='form-control' id='firstName' autocomplete='off' formControlName='firstName'>
+        </div>
+
+        <div class='col-sm-3'>
+            <label for='lastName' class='form-label'>Prezime</label>
+            <input type='text' class='form-control' id='lastName' autocomplete='off' formControlName='lastName'>
+        </div>
+
+        <div class='col-9 text-end pt-4 pb-2'>
+            <button class='btn btn-primary' type='submit' [disabled]='!userForm.valid'>Potvrdi</button>
+        </div>
+    </form>
+</div>
+
+<div class='col-md-12 mt-4 mb-4'>
+    <app-alert></app-alert>
+</div>

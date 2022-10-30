@@ -1,0 +1,22 @@
+<div class='container rounded-bottom bg-white'>
+    <div class='container ps-3 pe-3'>
+        <h4 class='text-color'>Dodaj novo radno mjesto</h4>
+        <hr class='p-1'>
+    </div>
+    <div class='container'>
+        <form class='container d-flex ps-2 pb-5' [formGroup]='workingPlaceForm' (ngSubmit)='handleSubmit()'>
+            <div class='col-sm-3 me-3'>
+                <label for='workingPlace' class='form-label'>Radno mjesto</label>
+                <input type='text' class='form-control' id='workingPlace' autocomplete='off' formControlName='workingPlace'>
+            </div>
+
+            <div class='col-sm-1 text-end align-self-end'>
+                <button class='btn btn-primary' type='submit'>Potvrdi</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class='col-md-12 mt-4 mb-4'>
+    <app-alert></app-alert>
+</div>

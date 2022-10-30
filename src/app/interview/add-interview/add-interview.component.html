@@ -1,0 +1,78 @@
+<div class='container ps-4'>
+    <h4 class='text-color'>Unos novog razgovora</h4>
+</div>
+
+<form class='container' [formGroup]='interviewForm' (ngSubmit)='handleAddInterview()'>
+    <div class='container d-flex'>
+        <div class='row pt-3 pb-3 d-flex justify-content-center align-items-center'>
+            <div class='col'>
+                <label for='dateOfInterview' class='form-label'>Datum razgovora</label>
+                <div class='input-group'>
+                    <input class='form-control' id='dateOfInterview' autocomplete='off' formControlName='dateOfInterview' placeholder='dd.mm.yyyy'
+                        name='dp' ngbDatepicker #dateOfInterview='ngbDatepicker'>
+                    <button class='btn btn-outline-secondary calendar d-flex align-items-center' (click)='dateOfInterview.toggle()' type='button'>
+                        <svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-calendar' viewBox='0 0 16 16'>
+                            <path d='M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z'/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+
+            <div class='col'>
+                <label for='interest' class='form-label'>Interesi</label>
+                <select class='form-control' aria-label='Interest' id='interest' formControlName='interest'>
+                    <option *ngFor='let interest of interests' [value]='interest.name'> {{ interest.name }} </option>
+                </select>
+            </div>
+
+            <div class='w-100 d-none d-md-block'></div>
+
+            <div class='col'>
+                <label for='evaluation' class='form-label'>Ocjena kandidata</label>
+                <select class='form-control' aria-label='Evaluation' id='evaluation' formControlName='evaluation'>
+                    <option value='5'>5</option>
+                    <option value='4'>4</option>
+                    <option value='3'>3</option>
+                    <option value='2'>2</option>
+                    <option value='1'>1</option>
+                </select>
+            </div>
+
+            <div class='col'>
+                <label for='selectEmployment' class='form-label'>Zaposlenje</label>
+                <select class='form-control' aria-label='Select employment' (change)='onChanges()' id='selectEmployment' formControlName='selectEmployment'>
+                    <option value='Da'>Da</option>
+                    <option value='Ne'>Ne</option>
+                </select>
+            </div>
+
+            <div class='w-100 d-none d-md-block'></div>
+
+            <div class='col'>
+                <label for='dateOfEmployment' class='form-label'>Datum zaposlenja</label>
+                <div class='input-group'>
+                    <input class='form-control' id='dateOfEmployment' autocomplete='off' formControlName='dateOfEmployment' placeholder='dd.mm.yyyy'
+                        name='dp' ngbDatepicker #dateOfEmployment='ngbDatepicker'>
+                    <button class='btn btn-outline-secondary calendar d-flex align-items-center' (click)='dateOfEmployment.toggle()' type='button'>
+                        <svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-calendar' viewBox='0 0 16 16'>
+                            <path d='M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z'/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class='col-sm-6 p-3'>
+            <label for='comment' class='form-label'>Komentar</label>
+            <textarea class='form-control' id='comment' rows='7' formControlName='comment'></textarea>
+        </div>
+    </div>
+
+    <div class='container text-end p-4 pt-3'>
+        <button class='btn btn-primary' type='submit' [disabled]='!interviewForm.valid'>Potvrdi</button>
+    </div>
+</form>
+
+<div class='container pb-2 ps-4 pe-4'>
+    <app-alert></app-alert>
+</div>
